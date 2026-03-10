@@ -1,1 +1,1 @@
-this is a repo that stores responces of all the leetcode .
+this is a repo that stores responses of all the leetcode questions.
