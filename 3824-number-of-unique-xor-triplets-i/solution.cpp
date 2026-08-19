@@ -1,14 +1,9 @@
 class Solution {
-public:
-    int uniqueXorTriplets(vector<int>& nums) {
-        int n = nums.size();
-
-        if (n == 1) return 1;
-        if (n == 2) return 2;
-
-        int ans = 1;
-        while (ans <= n) ans <<= 1;   // next power of 2 greater than n
-
-        return ans;
-    }
+ public:
+  int uniqueXorTriplets(vector<int>& nums) {
+    const int n = nums.size();
+    if (n < 3)
+      return n;
+    return 1 << (static_cast<int>(log2(n)) + 1);
+  }
 };
