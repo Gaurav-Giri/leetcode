@@ -1,31 +1,25 @@
 class Solution {
-public:
-    string smallestSubsequence(string s) {
-        vector<int> last(26);
+ public:
+  string smallestSubsequence(string text) {
+    string ans;
+    vector<int> count(128);
+    vector<bool> used(128);
 
-        for (int i = 0; i < s.size(); i++) {
-            last[s[i] - 'a'] = i;
-        }
+    for (const char c : text)
+      ++count[c];
 
-        vector<bool> inStack(26, false);
-        string st;
-
-        for (int i = 0; i < s.size(); i++) {
-            char c = s[i];
-
-            if (inStack[c - 'a']) continue;
-
-            while (!st.empty() &&
-                   st.back() > c &&
-                   last[st.back() - 'a'] > i) {
-                inStack[st.back() - 'a'] = false;
-                st.pop_back();
-            }
-
-            st.push_back(c);
-            inStack[c - 'a'] = true;
-        }
-
-        return st;
+    for (const char c : text) {
+      --count[c];
+      if (used[c])
+        continue;
+      while (!ans.empty() && ans.back() > c && count[ans.back()] > 0) {
+        used[ans.back()] = false;
+        ans.pop_back();
+      }
+      used[c] = true;
+      ans.push_back(c);
     }
+
+    return ans;
+  }
 };
